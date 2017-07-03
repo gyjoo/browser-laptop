@@ -6,8 +6,13 @@ const React = require('react')
 const {StyleSheet, css} = require('aphrodite/no-important')
 const globalStyles = require('../../styles/global')
 
-// TODO: Check if stateless components can benefit from reduxComponent
-// by setting ownProps to stateless props.
+// This component normalizes the wrapper for buttons called on files
+// under app/renderer/components/navigation/buttons/ ro reduce the risk of
+// visual regressions and style inconsistency.
+// Ref https://github.com/brave/browser-laptop/pull/9299#discussion_r124714562
+
+// TODO (Cezar): Check if stateless components can benefit
+// from reduxComponent by setting ownProps to stateless props.
 class NavigationBarButtonContainer extends React.Component {
   render () {
     return (
@@ -17,7 +22,6 @@ class NavigationBarButtonContainer extends React.Component {
         // isNested and isStandalone should not be called at the same time
         this.props.isNested && styles.container_nested,
         this.props.isStandalone && styles.container_standalone,
-        this.props.onNavigationBarChrome && styles.chromeButtonContainer,
 
         // BEM style class name unique for each component
         this.props.containerFor
@@ -30,9 +34,9 @@ class NavigationBarButtonContainer extends React.Component {
 
 const styles = StyleSheet.create({
   // #9283
-  // Create 25x25 squares and place the buttons at the center of each container
+  // Create 25x25 square and place the button at the center of each container
   // Used for bookmarkButtonContainer, PublisherToggle, noScriptInfo, and UrlBarIcon.
-  boxed: {
+  container_square: {
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center',
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
   },
 
   // Add border to the bookmark button and publisher button only
-  nestedContainer: {
+  container_nested: {
     border: `1px solid ${globalStyles.color.urlBarOutline}`,
     borderRadius: globalStyles.radius.borderRadiusURL
   },
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
 
   // Used for stopButton, reloadButton, and homeButton on navigationBar.js
   // and backButton and forwardButton on navigator.js
-  standaloneContainer: {
+  container_standalone: {
     display: 'inline-block',
     borderRadius: globalStyles.radius.borderRadiusNavigationButton,
     height: globalStyles.navigationBar.urlbarForm.height,
