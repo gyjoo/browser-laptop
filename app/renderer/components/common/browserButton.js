@@ -290,6 +290,7 @@ const styles = StyleSheet.create({
     outline: 'none',
     border: 'none',
     margin: 0,
+    userSelect: 'none',
     whiteSpace: 'nowrap'
   },
 
