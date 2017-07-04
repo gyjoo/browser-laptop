@@ -402,13 +402,6 @@ class UrlBar extends React.Component {
     }
   }
 
-  get hostValue () {
-    const parsed = urlParse(this.props.location)
-    return parsed.host &&
-      parsed.protocol !== 'about:' &&
-      parsed.protocol !== 'chrome-extension:' ? parsed.host : ''
-  }
-
   get titleValue () {
     // For about:newtab we don't want the top of the browser saying New Tab
     // Instead just show "Brave"
